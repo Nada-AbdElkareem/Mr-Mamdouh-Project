@@ -1,0 +1,10 @@
+{
+  "name": "Mersal DOC AI",
+  "description": "تطبيق متطور لاستخراج البيانات من الوثائق الرسمية (بطاقات الرقم القومي، شهادات الميلاد، كروت المفوضية، وجوازات السفر) باستخدام الذكاء الاصطناعي.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "vision"
+  ]
+}
