@@ -20,8 +20,22 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:3000');
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    const indexPath = path.join(__dirname, 'dist', 'index.html');
+    mainWindow.loadFile(indexPath).catch(err => {
+      console.error('Failed to load index.html:', err);
+    });
   }
+
+  // Debug white screen
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+    console.error(`Failed to load URL: ${validatedURL} with error: ${errorDescription} (${errorCode})`);
+    if (isDev) {
+      setTimeout(() => {
+        console.log('Retrying to load...');
+        mainWindow.loadURL('http://localhost:3000');
+      }, 2000);
+    }
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
