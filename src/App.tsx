@@ -32,6 +32,15 @@ interface HistoryItem {
   modificationsHistory?: HistoryModification[];
 }
 
+declare global {
+  interface Window {
+    electronAPI: {
+      getAppVersion: () => Promise<string>;
+      logError: (data: any) => void;
+    };
+  }
+}
+
 export default function App() {
   const { t, i18n } = useTranslation();
   const [image, setImage] = useState<string | null>(null);
@@ -186,15 +195,6 @@ export default function App() {
       addToast('ذاكرة المتصفح ممتلئة تماماً، يرجى مسح بيانات المتصفح لهذا الموقع');
     }
   }, [history]);
-
-declare global {
-  interface Window {
-    electronAPI: {
-      getAppVersion: () => Promise<string>;
-      logError: (data: any) => void;
-    };
-  }
-}
 
   const logError = async (message: string, context: any, stage: number) => {
     try {
